@@ -1,8 +1,8 @@
 <?php
 
 // Read a file name off the command line for parsing
-if(!empty($argv[1]) {
-  if(file_exists($argv[1]) {
+if(!empty($argv[1])) {
+  if(file_exists($argv[1])) {
     $fh_bin = fopen($argv[1], 'r');
     // Open a new file handle for the parsaed version.
     $fh_new = fopen($argv[1] . '_parsed.txt', 'w+');
@@ -14,7 +14,7 @@ if(!empty($argv[1]) {
 // Parse the file contents.
 $at_file_start = TRUE;
 fgets($fh_bin);
-  $question_count = 1;
+$question_count = 1;
 while(!feof($fh_bin)) {
   $num_questions = fgets($fh_bin);
   fwrite($fh_new, 'Number of Questions: ' . $num_questions . '\n');
