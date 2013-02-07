@@ -25,7 +25,7 @@ while(!feof($fh_bin)) {
   $num_lines = fgets($fh_bin);
   // Get the paragraph that the questions use.
   fwrite($fh_new, 'Paragraph ' . $question_count . ':');
-  for($i = 0; $i > $num_lines; $i++) {
+  for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $paragraph .= $line;
   }
@@ -36,7 +36,7 @@ while(!feof($fh_bin)) {
   // Get the default response (will not be added to Moodle)
   $num_lines = fgets($fh_bin);
   fwrite($fh_new, 'Default Response ' . $question_count . ':');
-  for($i = 0; $i > $num_lines; $i++) {
+  for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $def_response .= $line;
   }
@@ -46,7 +46,7 @@ while(!feof($fh_bin)) {
   fwrite($fh_new, 'Correct Answer: ' . $correct_answer);
   $num_lines = fgets($fh_bin);
   fwrite($fh_new, 'Correct Response: ');
-  for($i = 0; $i > $num_lines; $i++) {
+  for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $cor_response .= $line;
   }
@@ -59,10 +59,10 @@ while(!feof($fh_bin)) {
 
 function get_wrong_answer($fh_bin, $fh_new, $i) {
   $correct_answer = fgets($fh_bin);
-  fwrite($fh_new, 'Wrong Answer #' $i . ': ' . $correct_answer);
+  fwrite($fh_new, 'Wrong Answer #' . $i . ': ' . $correct_answer);
   $num_lines = fgets($fh_bin);
   fwrite($fh_new, 'Wrong Response: ');
-  for($i = 0; $i > $num_lines; $i++) {
+  for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $cor_response .= $line;
   }
