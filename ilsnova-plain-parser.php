@@ -24,13 +24,13 @@ $def_response = '';
 while(!feof($fh_bin)) {
   // Get the paragraph that the item uses.
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Page ' . $question_count . ':');
+  fwrite($fh_new, '::Page ' . $question_count);
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $paragraph .= $line;
   }
-  fwrite($fh_new, PHP_EOL);
-  fwrite($fh_new, $paragraph);
+  //fwrite($fh_new, PHP_EOL);
+  fwrite($fh_new, ':: ' . $paragraph);
   fwrite($fh_new, PHP_EOL . PHP_EOL);
   // Increment the number of questions.
   $question_count++;
