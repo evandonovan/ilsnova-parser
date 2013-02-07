@@ -24,8 +24,9 @@ $num_responses = fgets($fh_bin);
 fwrite($fh_new, 'Number of Responses per Question: ' . $num_responses . "\n");
 // Do parsing in a while loop until the end of the file.
 while(!feof($fh_bin)) {
-  $num_lines = fgets($fh_bin);
+  $num_responses = fgets($fh_bin); // Ignore the number of responses when in the inner loop.
   // Get the paragraph that the questions use.
+  $num_lines = fgets($fh_bin);
   fwrite($fh_new, 'Paragraph ' . $question_count . ':');
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
