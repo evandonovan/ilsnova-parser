@@ -31,11 +31,11 @@ while(!feof($fh_bin)) {
     $paragraph .= $line;
   }
   fwrite($fh_new, $paragraph);
-  fwrite("\n");
+  fwrite(PHP_EOL);
   // Get the question (single line)
   $question = fgets($fh_bin);
-  fwrite($fh_new, $question);
-  fwrite("\n");
+  fwrite($fh_new, 'Question: ' . $question);
+  fwrite(PHP_EOL);
   // Get the default response (will not be added to Moodle)
   $num_lines = fgets($fh_bin);
   fwrite($fh_new, 'Default Response ' . $question_count . ':');
@@ -44,7 +44,7 @@ while(!feof($fh_bin)) {
     $def_response .= $line;
   }
   fwrite($fh_new, $def_response);
-  fwrite("\n");
+  fwrite(PHP_EOL);
   // Get the correct answer
   $correct_answer = fgets($fh_bin);
   fwrite($fh_new, 'Correct Answer: ' . $correct_answer);
@@ -55,11 +55,11 @@ while(!feof($fh_bin)) {
     $cor_response .= $line;
   }
   fwrite($fh_new, $cor_response);
-  fwrite("\n");
+  fwrite(PHP_EOL);
   for($i = 1; $i < $num_responses; $i++) {
     get_wrong_answer($fh_bin, $fh_new, $i);
   };
-  fwrite("\n\n");
+  fwrite(PHP_EOL . PHP_EOL);
   // Increment the number of questions.
   $question_count++;
   // Reset the paragraph and response values.
@@ -73,12 +73,12 @@ function get_wrong_answer($fh_bin, $fh_new, $i) {
   $wrong_response = '';
   fwrite($fh_new, 'Wrong Answer #' . $i . ': ' . $wrong_answer);
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Wrong Response: ');
+  fwrite($fh_new, 'Wrong Response #: ' . $i);
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $wrong_response .= $line;
   }
   fwrite($fh_new, $wrong_response);
-  fwrite("\n");
+  fwrite(PHP_EOL);
 }
 ?>
