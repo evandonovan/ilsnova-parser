@@ -17,6 +17,8 @@ $at_file_start = TRUE;
 // @todo: Figure out what it means.
 fgets($fh_bin);
 $question_count = 1;
+$paragraph = '';
+$def_response = '';
 // Do parsing in a while loop until the end of the file.
 while(!feof($fh_bin)) {
   // Get the number of responses each question has.
@@ -59,7 +61,11 @@ while(!feof($fh_bin)) {
   get_wrong_answer($fh_bin, $fh_new, 2);
   get_wrong_answer($fh_bin, $fh_new, 3);
   fwrite("\n\n");
+  // Increment the number of questions.
   $question_count++;
+  // Reset the paragraph and response values.
+  $paragraph = '';
+  $def_response = '';
 }
 
 function get_wrong_answer($fh_bin, $fh_new, $i) {
