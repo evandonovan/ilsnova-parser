@@ -4,8 +4,9 @@
 if(!empty($argv[1])) {
   if(file_exists($argv[1])) {
     $fh_bin = fopen($argv[1], 'r');
-    // Open a new file handle for the parsaed version.
-    $fh_new = fopen($argv[1] . '_parsed.txt', 'w+');
+    $filename = explode('.', $argv[1])
+    // Open a new file handle for the parsed version.
+    $fh_new = fopen($filename[0] . '_parsed.txt', 'w+');
   }
   else {
     echo "The file you specified does not exist.";
