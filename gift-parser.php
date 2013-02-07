@@ -58,7 +58,8 @@ while(!feof($fh_bin)) {
   for($i = 1; $i < $num_responses; $i++) {
     get_wrong_answer($fh_bin, $fh_new, $i);
   };
-  fwrite('}' . PHP_EOL . PHP_EOL);
+  fwrite('}');
+  fwrite(PHP_EOL . PHP_EOL);
   // Increment the number of questions.
   $question_count++;
   // Reset the paragraph and response values.
