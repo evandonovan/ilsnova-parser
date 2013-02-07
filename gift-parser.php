@@ -38,6 +38,12 @@ while(!feof($fh_bin)) {
   $question = fgets($fh_bin);
   fwrite($fh_new, $question . ' {');
   fwrite(PHP_EOL);
+  // Get the default response (will not be added to Moodle)
+  $num_lines = fgets($fh_bin);
+  for($i = 0; $i < $num_lines; $i++) {
+    $line = fgets($fh_bin);
+    $def_response .= $line;
+  }
   // Get the correct answer
   $correct_answer = fgets($fh_bin);
   fwrite($fh_new, '=' . $correct_answer);
