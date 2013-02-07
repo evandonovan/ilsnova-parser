@@ -70,9 +70,9 @@ while(!feof($fh_bin)) {
 function get_wrong_answer($fh_bin, $fh_new, $i) {
   $wrong_answer = fgets($fh_bin);
   $wrong_response = '';
-  fwrite($fh_new, '~' . $i . ': ' . $wrong_answer);
+  fwrite($fh_new, '~ ' . $wrong_answer);
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, '#' . $i . ': ');
+  fwrite($fh_new, '# ');
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $wrong_response .= $line;
