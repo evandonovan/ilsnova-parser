@@ -13,18 +13,59 @@ if(!empty($argv[1])) {
 }
 // Parse the file contents.
 $at_file_start = TRUE;
+// Ignore the first line.
+// @todo: Figure out what it means.
 fgets($fh_bin);
 $question_count = 1;
+// Do parsing in a while loop until the end of the file.
 while(!feof($fh_bin)) {
-  $num_questions = fgets($fh_bin);
-  fwrite($fh_new, 'Number of Questions: ' . $num_questions . '\n');
+  // Get the number of responses each question has.
+  $num_responses = fgets($fh_bin); 
+  fwrite($fh_new, 'Number of Responses per Question: ' . $num_responses . '\n');
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Question #' . $question_count . ':');
+  // Get the paragraph that the questions use.
+  fwrite($fh_new, 'Paragraph ' . $question_count . ':');
   for($i = 0; $i > $num_lines; $i++) {
     $line = fgets($fh_bin);
-    $question .= $line;
+    $paragraph .= $line;
   }
+  fwrite($fh_new, $paragraph);
+  // Get the question (single line)
+  $question = fgets($fh_bin);
   fwrite($fh_new, $question);
+  // Get the default response (will not be added to Moodle)
+  $num_lines = fgets($fh_bin);
+  fwrite($fh_new, 'Default Response ' . $question_count . ':');
+  for($i = 0; $i > $num_lines; $i++) {
+    $line = fgets($fh_bin);
+    $def_response .= $line;
+  }
+  fwrite($fh_new, $def_response);
+  // Get the correct answer
+  $correct_answer = fgets($fh_bin);
+  fwrite($fh_new, 'Correct Answer: ' . $correct_answer);
+  $num_lines = fgets($fh_bin);
+  fwrite($fh_new, 'Correct Response: ');
+  for($i = 0; $i > $num_lines; $i++) {
+    $line = fgets($fh_bin);
+    $cor_response .= $line;
+  }
+  fwrite($fh_new, $cor_response);
+  get_wrong_answer($fh_bin, $fh_new, 1);
+  get_wrong_answer($fh_bin, $fh_new, 2);
+  get_wrong_answer($fh_bin, $fh_new, 3);
   $question_count++;
+}
+
+function get_wrong_answer($fh_bin, $fh_new, $i) {
+  $correct_answer = fgets($fh_bin);
+  fwrite($fh_new, 'Wrong Answer #' $i . ': ' . $correct_answer);
+  $num_lines = fgets($fh_bin);
+  fwrite($fh_new, 'Wrong Response: ');
+  for($i = 0; $i > $num_lines; $i++) {
+    $line = fgets($fh_bin);
+    $cor_response .= $line;
+  }
+  fwrite($fh_new, $cor_response);
 }
 ?>
