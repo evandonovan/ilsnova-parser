@@ -62,6 +62,7 @@ while(!feof($fh_bin)) {
   $paragraph = '';
   $def_response = '';
   $cor_response = '';
+  fwrite($fh_new, PHP_EOL . PHP_EOL);
 }
 
 function get_wrong_answer($fh_bin, $fh_new, $i) {
