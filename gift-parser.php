@@ -26,6 +26,7 @@ while(!feof($fh_bin)) {
   $num_responses = fgets($fh_bin); 
   // Write a question title
   fwrite($fh_new, '::Question ' . $question_count);
+  fwrite($fh_new, PHP_EOL);
   // Get the paragraph that the questions use.
   $num_lines = fgets($fh_bin);
   for($i = 0; $i < $num_lines; $i++) {
