@@ -38,7 +38,7 @@ while(!feof($fh_bin)) {
   fwrite(PHP_EOL);
   // Get the default response (will not be added to Moodle)
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Default Response ' . $question_count . ':');
+  fwrite($fh_new, 'Default Response: ');
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $def_response .= $line;
@@ -73,7 +73,7 @@ function get_wrong_answer($fh_bin, $fh_new, $i) {
   $wrong_response = '';
   fwrite($fh_new, 'Wrong Answer #' . $i . ': ' . $wrong_answer);
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Wrong Response # ' . $i . ': ');
+  fwrite($fh_new, 'Wrong Response #' . $i . ': ');
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $wrong_response .= $line;
