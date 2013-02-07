@@ -66,10 +66,12 @@ while(!feof($fh_bin)) {
   // Reset the paragraph and response values.
   $paragraph = '';
   $def_response = '';
+  $cor_response = '';
 }
 
 function get_wrong_answer($fh_bin, $fh_new, $i) {
   $wrong_answer = fgets($fh_bin);
+  $wrong_response = '';
   fwrite($fh_new, 'Wrong Answer #' . $i . ': ' . $wrong_answer);
   $num_lines = fgets($fh_bin);
   fwrite($fh_new, 'Wrong Response: ');
