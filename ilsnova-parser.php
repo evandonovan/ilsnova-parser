@@ -30,6 +30,7 @@ while(!feof($fh_bin)) {
     $line = fgets($fh_bin);
     $paragraph .= $line;
   }
+  fwrite($fh_new, PHP_EOL);
   fwrite($fh_new, $paragraph);
   fwrite($fh_new, PHP_EOL);
   // Get the question (single line)
@@ -43,8 +44,8 @@ while(!feof($fh_bin)) {
     $line = fgets($fh_bin);
     $def_response .= $line;
   }
-  fwrite($fh_new, $def_response);
-  fwrite($fh_new, PHP_EOL);
+  //fwrite($fh_new, $def_response);
+  //fwrite($fh_new, PHP_EOL);
   // Get the correct answer
   $correct_answer = fgets($fh_bin);
   fwrite($fh_new, 'Correct Answer: ' . $correct_answer);
