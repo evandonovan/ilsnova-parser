@@ -4,7 +4,7 @@
 if(!empty($argv[1])) {
   if(file_exists($argv[1])) {
     $fh_bin = fopen($argv[1], 'r');
-    $filename = explode('.', $argv[1])
+    $filename = explode('.', $argv[1]);
     // Open a new file handle for the parsed version.
     $fh_new = fopen($filename[0] . '_parsed.txt', 'w+');
   }
