@@ -58,9 +58,9 @@ while(!feof($fh_bin)) {
   }
   fwrite($fh_new, $cor_response);
   fwrite("\n");
-  get_wrong_answer($fh_bin, $fh_new, 1);
-  get_wrong_answer($fh_bin, $fh_new, 2);
-  get_wrong_answer($fh_bin, $fh_new, 3);
+  for($i = 1; $i < $num_responses; $i++) {
+    get_wrong_answer($fh_bin, $fh_new, $i);
+  };
   fwrite("\n\n");
   // Increment the number of questions.
   $question_count++;
