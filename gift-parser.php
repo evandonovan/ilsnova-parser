@@ -5,7 +5,8 @@ if(!empty($argv[1])) {
   if(file_exists($argv[1])) {
     $fh_bin = fopen($argv[1], 'r');
     // Open a new file handle for the parsaed version.
-    $fh_new = fopen($argv[1] . '_parsed.txt', 'w+');
+    $filename = explode('.', $argv[1]);
+    $fh_new = fopen($filename[0] . '_gift.txt', 'w+');
   }
   else {
     echo "The file you specified does not exist.";
@@ -23,33 +24,25 @@ $def_response = '';
 while(!feof($fh_bin)) {
   // Get the number of responses each question has, but don't echo it.
   $num_responses = fgets($fh_bin); 
+  // Write a question title
+  fwrite($fh_new, '::Question ' . $question_count);
   // Get the paragraph that the questions use.
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Paragraph ' . $question_count . ':');
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $paragraph .= $line;
   }
-  fwrite($fh_new, $paragraph);
+  fwrite($fh_new, ':: ' . $paragraph);
   fwrite(PHP_EOL);
   // Get the question (single line)
   $question = fgets($fh_bin);
-  fwrite($fh_new, 'Question: ' . $question);
-  fwrite(PHP_EOL);
-  // Get the default response (will not be added to Moodle)
-  $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Default Response: ');
-  for($i = 0; $i < $num_lines; $i++) {
-    $line = fgets($fh_bin);
-    $def_response .= $line;
-  }
-  fwrite($fh_new, $def_response);
+  fwrite($fh_new, $question . ' {');
   fwrite(PHP_EOL);
   // Get the correct answer
   $correct_answer = fgets($fh_bin);
-  fwrite($fh_new, 'Correct Answer: ' . $correct_answer);
+  fwrite($fh_new, '=' . $correct_answer);
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Correct Response: ');
+  fwrite($fh_new, '#');
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $cor_response .= $line;
@@ -59,7 +52,7 @@ while(!feof($fh_bin)) {
   for($i = 1; $i < $num_responses; $i++) {
     get_wrong_answer($fh_bin, $fh_new, $i);
   };
-  fwrite(PHP_EOL . PHP_EOL);
+  fwrite('}' . PHP_EOL . PHP_EOL);
   // Increment the number of questions.
   $question_count++;
   // Reset the paragraph and response values.
@@ -71,9 +64,9 @@ while(!feof($fh_bin)) {
 function get_wrong_answer($fh_bin, $fh_new, $i) {
   $wrong_answer = fgets($fh_bin);
   $wrong_response = '';
-  fwrite($fh_new, 'Wrong Answer #' . $i . ': ' . $wrong_answer);
+  fwrite($fh_new, '~' . $i . ': ' . $wrong_answer);
   $num_lines = fgets($fh_bin);
-  fwrite($fh_new, 'Wrong Response #' . $i . ': ');
+  fwrite($fh_new, '#' . $i . ': ');
   for($i = 0; $i < $num_lines; $i++) {
     $line = fgets($fh_bin);
     $wrong_response .= $line;
